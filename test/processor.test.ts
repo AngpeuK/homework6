@@ -1,29 +1,59 @@
-import {Processor} from "../src/Processor"
+import {User} from "../src/User";
+import {Processor} from "../src/Processor";
 
-describe('tests for Processor class', () => {
-    let processor: Processor
+let user: User
+let processor: Processor
 
-    beforeEach(() => {
-        processor = new Processor() // Создаем новый экземпляр перед каждым тестом
+beforeEach((): void => {
+    processor = new Processor()
+    user = new User('Andrei', 'Kuzmin', '5354100', 'Narva', 18)
+})
+
+test('check if new user is undefined', (): void => {
+    expect(user.consentGiven).toBeUndefined()
+})
+
+test('check if processor gives consent to the user', (): void => {
+    processor.giveConsent(user)
+    expect(user.consentGiven).toBe(true)
+})
+
+test('verify if user has given his consent', (): void => {
+    processor.giveConsent(user)
+    expect(processor.verifyConsent(user)).toBeTruthy()
+})
+
+test('check that consent is not approved  when user has not given consent', (): void => {
+    expect(processor.verifyConsent(user)).toBeFalsy()
+})
+
+// new tests homework 6
+// ====================
+
+describe('when users aged under 18', () => {
+    beforeEach((): void => {
+        user = new User('Andrei', 'Kuzmin', '5354100', 'Narva', 17)
+        processor = new Processor()
     })
 
-    test('should not allow consent for user under 18', () => {
-        //const result = processor.checkAge(17) // Проверяем возраст меньше 18
-        expect(processor.checkAge(17)).toBe(false) // Ожидаем, что метод вернет false
-        expect(processor.consentGiven).toBe(false) // Проверяем, что согласие недоступно
+    test('user under 18 is not able to give consent', (): void => {
+        expect(processor.checkAge(user)).toBe(false)
+    })
+})
+
+describe('when users aged 18 or over', () => {
+    beforeEach((): void => {
+        processor = new Processor()
+        user = new User('Andrei', 'Kuzmin', '5354100', 'Narva', 18)
     })
 
-    test('should allow consent for user 18 or older', () => {
-        //const result = processor.checkAge(18) // Проверяем возраст 18
-        expect(processor.checkAge(18)).toBe(true) // Ожидаем, что метод вернет true
-        expect(processor.consentGiven).toBe(true) // Проверяем, что согласие доступно
+    test('user aged 18 or over is able to give consent', (): void => {
+        expect(processor.checkAge(user)).toBe(true)
     })
 
-    test('should revoke consent correctly', () => {
-        processor.checkAge(18) // Устанавливаем согласие для пользователя 18+
-        expect(processor.consentGiven).toBe(true) // Проверяем, что согласие дано
-
-        processor.revokeConsent() // Отзываем согласие
-        expect(processor.consentGiven).toBe(false) // Проверяем, что согласие было отозвано
+    test('revoke consent method works correctly', (): void => {
+        processor.giveConsent(user)
+        processor.revokeConsent(user)
+        expect(user.consentGiven).toBe(false)
     })
 })

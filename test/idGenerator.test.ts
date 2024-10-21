@@ -1,4 +1,4 @@
-import {generateEstoniaID, generateLatviaID, generateLithuaniaID} from "../src/idGenerator";
+import {generateEstoniaID, generateLatviaID, generateLithuaniaID} from "../src/IdGenerator";
 
 test('should generate Estonian ID', () => {
     const id = generateEstoniaID()

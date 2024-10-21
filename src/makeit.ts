@@ -1,4 +1,4 @@
-import {generateEstoniaID, generateLatviaID, generateLithuaniaID} from "./idGenerator";
+import {generateEstoniaID, generateLatviaID, generateLithuaniaID} from "./IdGenerator";
 
 const ESTID= generateEstoniaID()
 console.log(ESTID)

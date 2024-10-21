@@ -1,17 +1,17 @@
 export class User {
-
-    name: string
+    namn: string
     surname: string
-    phone: number
+    phone: string
     address: string
+    age: number
     consentGiven: undefined | boolean
 
-    constructor(name: string, surname: string, phone: number, address: string) {
-        this.name = name
+
+    constructor(namn: string, surname: string, phone: string, address: string, age: number) {
+        this.namn = namn
         this.surname = surname
         this.phone = phone
         this.address = address
+        this.age = age
     }
-
-
 }

@@ -1,19 +1,26 @@
+import {User} from "./User";
+
 export class Processor {
-    consentGiven: boolean = false //Изначально согласие не дано
+
+    giveConsent(user: User): void {
+        user.consentGiven = true
+    }
 
 
-    checkAge(age: number): boolean {
-        if (age >= 18) {
-            this.consentGiven = true // Согласие доступно для пользователя
+    verifyConsent(user: User): boolean {
+        return user.consentGiven === true
+    }
+
+    checkAge(user: User): boolean {
+        // return user.age >= 18;
+        if (user.age >= 18) {
             return true
         } else {
-            this.consentGiven = false // Согласие не доступно для пользователя
             return false
         }
     }
 
-
-    revokeConsent(): void {
-        this.consentGiven = false // Отозвать согласие
+    revokeConsent(user: User): void {
+        user.consentGiven = false // Отозвать согласие
     }
 }
