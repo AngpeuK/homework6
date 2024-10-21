@@ -33,6 +33,7 @@ test('check that consent is not approved  when user has not given consent', (): 
 //new tests homework 6
 describe('when users aged under 18', () => {
     beforeEach((): void => {
+        user = new NewUser('Andrei', 'Kuzmin', '5354100', 'Narva', 17)
         processor = new NewProcessor()
     })
 
